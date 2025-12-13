@@ -324,6 +324,42 @@
         .estante { padding: 12px; }
         .nincho { min-height: 100px; }
     }
+    
+    /* Escalonamento extra para deixar a estante menor em telas muito pequenas
+       sem deformar proporções dos livros. Usamos transform: scale para reduzir
+       todo o conjunto mantendo a proporção visual. */
+    :root { --shelf-scale: 1; }
+
+    @media (max-width: 380px) {
+        :root { --shelf-scale: 0.88; }
+        .estante {
+            transform: scale(var(--shelf-scale));
+            transform-origin: top center;
+            margin-top: 36px;
+            width: calc(100% - 20px);
+        }
+
+        /* Ajustes finos para manter livros legíveis e proporcionais */
+        .livro { width: 28px; height: 92px; margin: 3px; }
+        .livro::after { font-size: 6.8px; }
+        .nincho { min-height: 92px; padding: 8px 6px; }
+        .estante { padding: 10px; }
+    }
+
+    @media (max-width: 320px) {
+        :root { --shelf-scale: 0.82; }
+        .estante {
+            transform: scale(var(--shelf-scale));
+            transform-origin: top center;
+            margin-top: 28px;
+            width: calc(100% - 16px);
+        }
+        .livro { width: 24px; height: 78px; }
+        .livro::after { font-size: 6px; }
+        .nincho { min-height: 80px; padding: 6px 6px; }
+        .estante { padding: 8px; }
+    }
+
     </style>
   <style>@view-transition { navigation: auto; }</style>
   <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
