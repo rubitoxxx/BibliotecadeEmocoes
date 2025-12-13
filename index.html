@@ -242,6 +242,88 @@
         font-weight: bold;
         cursor: pointer;
     }
+    
+    /* ===== Responsividade para celular ===== */
+    @media (max-width: 768px) {
+        body {
+            padding: 16px;
+            text-align: center;
+            font-size: 15px;
+        }
+
+        .estante {
+            width: calc(100% - 32px);
+            max-width: 100%;
+            padding: 18px;
+            margin: 80px auto 20px auto;
+            border-radius: 10px;
+            box-shadow: none;
+            border: 1px solid rgba(0,0,0,0.12);
+        }
+
+        .nincho {
+            padding: 12px 8px;
+            margin-bottom: 18px;
+            min-height: 120px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            align-items: flex-end;
+        }
+
+        .livro {
+            width: 36px;
+            height: 120px;
+            margin: 4px;
+        }
+
+        .livro::after {
+            font-size: 8px;
+        }
+
+        .sobre, .contato {
+            max-width: 100%;
+            margin: 40px 0;
+            padding: 18px;
+        }
+
+        nav {
+            position: sticky;
+            top: 12px;
+            width: 100%;
+            margin: 0 auto 12px auto;
+            padding: 6px 10px;
+            background: rgba(255,255,255,0.75);
+        }
+
+        nav > ul {
+            display: flex;
+            gap: 8px;
+            padding: 0 8px;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+        }
+
+        nav > ul::-webkit-scrollbar { display: none; }
+
+        nav > ul li a {
+            padding-inline: 10px;
+            font-size: 0.95rem;
+        }
+
+        .contato input, .contato textarea {
+            font-size: 14px;
+            padding: 10px;
+        }
+    }
+
+    @media (max-width: 420px) {
+        .livro { width: 30px; height: 100px; }
+        .livro::after { font-size: 7px; }
+        .estante { padding: 12px; }
+        .nincho { min-height: 100px; }
+    }
     </style>
   <style>@view-transition { navigation: auto; }</style>
   <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
