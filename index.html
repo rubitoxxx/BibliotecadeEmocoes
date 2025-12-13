@@ -243,121 +243,79 @@
         cursor: pointer;
     }
     
-    /* ===== Responsividade para celular ===== */
+    /* ===== Responsividade para celular (refinado para foto) ===== */
     @media (max-width: 768px) {
         body {
-            padding: 16px;
+            padding: 14px;
             text-align: center;
             font-size: 15px;
         }
 
         .estante {
-            width: calc(100% - 32px);
-            max-width: 100%;
-            padding: 18px;
-            margin: 80px auto 20px auto;
-            border-radius: 10px;
-            box-shadow: none;
-            border: 1px solid rgba(0,0,0,0.12);
+            width: 520px;
+            max-width: calc(100% - 48px);
+            padding: 22px;
+            margin: 80px auto 22px auto;
+            border-radius: 12px;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.35);
+            border: 3px solid rgba(0,0,0,0.18);
         }
 
         .nincho {
-            padding: 12px 8px;
-            margin-bottom: 18px;
-            min-height: 120px;
+            padding: 14px 12px;
+            margin-bottom: 20px;
+            min-height: 140px;
             display: flex;
-            flex-wrap: wrap;
-            gap: 6px;
+            flex-wrap: nowrap;
+            gap: 8px;
             align-items: flex-end;
+            justify-content: center;
         }
 
         .livro {
-            width: 36px;
-            height: 120px;
-            margin: 4px;
+            width: 40px;
+            height: 136px;
+            margin: 0 6px;
         }
 
-        .livro::after {
-            font-size: 8px;
-        }
+        .livro::after { font-size: 8px; }
 
-        .sobre, .contato {
-            max-width: 100%;
-            margin: 40px 0;
-            padding: 18px;
-        }
+        .sobre, .contato { padding: 18px; margin: 40px auto; }
 
-        nav {
-            position: sticky;
-            top: 12px;
-            width: 100%;
-            margin: 0 auto 12px auto;
-            padding: 6px 10px;
-            background: rgba(255,255,255,0.75);
-        }
-
-        nav > ul {
-            display: flex;
-            gap: 8px;
-            padding: 0 8px;
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
-            scrollbar-width: none;
-        }
-
-        nav > ul::-webkit-scrollbar { display: none; }
-
-        nav > ul li a {
-            padding-inline: 10px;
-            font-size: 0.95rem;
-        }
-
-        .contato input, .contato textarea {
-            font-size: 14px;
-            padding: 10px;
-        }
+        nav { position: sticky; top: 12px; width: 100%; padding: 6px 10px; }
+        nav > ul { overflow-x: auto; -webkit-overflow-scrolling: touch; }
     }
 
     @media (max-width: 420px) {
-        .livro { width: 30px; height: 100px; }
+        body { padding: 10px; }
+        .estante {
+            width: 360px;
+            max-width: calc(100% - 24px);
+            padding: 16px;
+            margin: 64px auto 18px auto;
+            border-radius: 12px;
+            box-shadow: 0 10px 24px rgba(0,0,0,0.34);
+            border: 3px solid rgba(0,0,0,0.16);
+            transform: none;
+        }
+
+        .nincho {
+            padding: 12px 10px;
+            min-height: 120px;
+            gap: 6px;
+            justify-content: center;
+            flex-wrap: nowrap;
+        }
+
+        .livro { width: 34px; height: 110px; margin: 0 6px; }
+        .livro::after { font-size: 7.5px; }
+    }
+
+    @media (max-width: 360px) {
+        .estante { width: 320px; max-width: calc(100% - 20px); padding: 12px; margin-top: 56px; }
+        .livro { width: 30px; height: 96px; }
         .livro::after { font-size: 7px; }
-        .estante { padding: 12px; }
-        .nincho { min-height: 100px; }
-    }
-    
-    /* Escalonamento extra para deixar a estante menor em telas muito pequenas
-       sem deformar proporções dos livros. Usamos transform: scale para reduzir
-       todo o conjunto mantendo a proporção visual. */
-    :root { --shelf-scale: 1; }
-
-    @media (max-width: 380px) {
-        :root { --shelf-scale: 0.88; }
-        .estante {
-            transform: scale(var(--shelf-scale));
-            transform-origin: top center;
-            margin-top: 36px;
-            width: calc(100% - 20px);
-        }
-
-        /* Ajustes finos para manter livros legíveis e proporcionais */
-        .livro { width: 28px; height: 92px; margin: 3px; }
-        .livro::after { font-size: 6.8px; }
-        .nincho { min-height: 92px; padding: 8px 6px; }
-        .estante { padding: 10px; }
-    }
-
-    @media (max-width: 320px) {
-        :root { --shelf-scale: 0.82; }
-        .estante {
-            transform: scale(var(--shelf-scale));
-            transform-origin: top center;
-            margin-top: 28px;
-            width: calc(100% - 16px);
-        }
-        .livro { width: 24px; height: 78px; }
-        .livro::after { font-size: 6px; }
-        .nincho { min-height: 80px; padding: 6px 6px; }
-        .estante { padding: 8px; }
+        .nincho { min-height: 96px; padding: 8px 6px; gap: 5px; }
     }
 
     </style>
