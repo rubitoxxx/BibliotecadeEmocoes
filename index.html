@@ -326,7 +326,7 @@
  <body>
     <nav>
         <ul>
-            <li><a href="#Inicio">Inicio</a></li>
+            <li><a href="#Inicio" id="link-inicio">Inicio</a></li>
             <li><a href="#Sobre">Sobre</a></li>
             <li><a href="#Projetos">Projetos</a></li>
             <li><a href="#EntreemContato">Entre em Contato</a></li>
@@ -403,13 +403,26 @@
     <button type="submit">Enviar</button>
   </form>
 </section>
+ 
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var inicio = document.getElementById('link-inicio');
+    if (inicio) {
+        inicio.addEventListener('click', function(e) {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            try { history.replaceState(null, '', window.location.pathname); } catch (err) {}
+        });
+    }
+});
+</script>
 
 </body>
 </html>
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Seleciona o primeiro livro pelo ID que acabamos de adicionar
-        var primeiroLivro = document.getElementById('primeiro-livro');
+        document.addEventListener('DOMContentLoaded', function() {
+                // Seleciona o primeiro livro pelo ID que acabamos de adicionar
+                var primeiroLivro = document.getElementById('primeiro-livro');
 
         // Verifica se o elemento foi encontrado
         if (primeiroLivro) {
