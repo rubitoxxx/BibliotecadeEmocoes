@@ -510,6 +510,24 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 
 <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Seleciono o quinto livro pelo ID que acabamos de adicionar
+        var sextoLivro = document.getElementById('sexto-livro');
+
+        // Verifica se o elemento foi encontrado
+        if (sextoLivro) {
+            // Adiciona um event listener para o evento de clique
+            sextoLivro.addEventListener('click', function() {
+                // Redireciona para o arquivo 'primeiropost.html'
+                window.location.href = 'sextopost.html';
+            });
+        } else {
+            console.error('Elemento com ID "sexto-livro" não encontrado.');
+        }
+    }); 
+</script>
+
+<script>
 document.addEventListener('DOMContentLoaded', () => {
 	const nav = document.querySelector('nav > ul');
 	const items = document.querySelectorAll('nav > ul li a');
