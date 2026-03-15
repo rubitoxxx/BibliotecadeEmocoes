@@ -340,7 +340,7 @@
     <div id="quarto-livro" class="livro livro4" data-titulo="Meiguinho"></div>
     <div id="quinto-livro" class="livro livro5" data-titulo="Subranô"></div>
     <div id="sexto-livro" class="livro livro6" data-titulo="Atuação"></div>
-    <div id="setimo-livro" class="livro livro7" data-titulo="VIDAS SECAS"></div>
+    <div id="setimo-livro" class="livro livro7" data-titulo="Magia da Programação"></div>
     <div id="oitavo-livro" class="livro livro8" data-titulo="A MORENINHA"></div>
     <div id="nono-livro" class="livro livro9" data-titulo="IRACEMA"></div>
     <div id="decimo-livro" class="livro livro10" data-titulo="SAPIENS"></div>
@@ -518,11 +518,19 @@ document.addEventListener('DOMContentLoaded', function() {
         if (sextoLivro) {
             // Adiciona um event listener para o evento de clique
             sextoLivro.addEventListener('click', function() {
-                // Redireciona para o arquivo 'primeiropost.html'
                 window.location.href = 'sextopost.html';
             });
         } else {
             console.error('Elemento com ID "sexto-livro" não encontrado.');
+        }
+
+        var setimoLivro = document.getElementById('setimo-livro');
+        if (setimoLivro) {
+            setimoLivro.addEventListener('click', function() {
+                window.location.href = 'setimopost.html';
+            });
+        } else {
+            console.error('Elemento com ID "setimo-livro" não encontrado.');
         }
     }); 
 </script>
