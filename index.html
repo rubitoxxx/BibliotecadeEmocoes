@@ -341,7 +341,7 @@
     <div id="quinto-livro" class="livro livro5" data-titulo="Subranô"></div>
     <div id="sexto-livro" class="livro livro6" data-titulo="Atuação"></div>
     <div id="setimo-livro" class="livro livro7" data-titulo="Magia da Programação"></div>
-    <div id="oitavo-livro" class="livro livro8" data-titulo="A MORENINHA"></div>
+    <div id="oitavo-livro" class="livro livro8" data-titulo="Síndrome do pc gamer"></div>
     <div id="nono-livro" class="livro livro9" data-titulo="IRACEMA"></div>
     <div id="decimo-livro" class="livro livro10" data-titulo="SAPIENS"></div>
     <div id="onze-livro" class="livro livro11" data-titulo="O HOBBIT"></div>
@@ -521,7 +521,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 window.location.href = 'sextopost.html';
             });
         } else {
-            console.error('Elemento com ID "sexto-livro" não encontrado.');
+            console.error('Elemento com ID "setimo-livro" não encontrado.');
         }
 
         var setimoLivro = document.getElementById('setimo-livro');
@@ -531,6 +531,32 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         } else {
             console.error('Elemento com ID "setimo-livro" não encontrado.');
+        }
+    }); 
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Seleciono o oitavo livro pelo ID que acabamos de adicionar
+        var oitavoLivro = document.getElementById('oitavo-livro');
+
+        // Verifica se o elemento foi encontrado
+        if (oitavoLivro) {
+            // Adiciona um event listener para o evento de clique
+            oitavoLivro.addEventListener('click', function() {
+                window.location.href = 'oitavopost.html';
+            });
+        } else {
+            console.error('Elemento com ID "oitavo-livro" não encontrado.');
+        }
+
+        var oitavoLivro = document.getElementById('oitavo-livro');
+        if (oitavoLivro) {
+            oitavoLivro.addEventListener('click', function() {
+                window.location.href = 'oitavopost.html';
+            });
+        } else {
+            console.error('Elemento com ID "oitavo-livro" não encontrado.');
         }
     }); 
 </script>
