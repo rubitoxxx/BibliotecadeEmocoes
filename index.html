@@ -392,16 +392,29 @@
 <section id="EntreemContato" class="contato">
   <h2>Entre em Contato</h2>
 
-  <form action="https://formspree.io/f/SEU_ID_AQUI" method="POST">
-    <input type="hidden" name="_subject" value="Novo contato do Blog">
-    <input type="hidden" name="_captcha" value="false">
-
-    <input type="text" name="nome" placeholder="Seu nome" required>
-    <input type="email" name="email" placeholder="Seu e-mail" required>
-    <textarea name="mensagem" placeholder="Escreva sua mensagem..." required></textarea>
+  <form onsubmit= "enviarWhats(evente)">
+    <input type="text" id="nome" placeholder="Seu nome" required>
+    <input type="email" id="email" placeholder="Seu email" required>
+    <textarea id="mensagem" placeholder= "Escreva sua sugestão para o próximo post..." required>
 
     <button type="submit">Enviar</button>
   </form>
+		
+ <script>
+ function enviarWhats(event) {
+	event.preventDefault();
+
+	const nome = document.getElementById("nome").value;
+	const email = document.getElementById("email").value;
+	const mensagem = document.getElementById("mensagem").value;
+
+	const texto = `Olá! Meu nome é ${nome}%0Aemail: ${email}%0AMensagem: ${mensagem}`;
+	const numero = "5598988937978";
+	const url = `https://wa.me/${numero}?text=${texto}`;
+	window.open(url, "_blank");
+}
+	</script>
+
 </section>
  
 <script>
