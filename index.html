@@ -52,11 +52,18 @@ height: 160px;
 margin: 0 3px;
 position: relative;
 cursor: pointer;
-transition: transform 0.3s ease, box-shadow 0.3s ease;
+transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease, opacity 0.5s ease;
 border-radius: 2px;
 box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
 border-left: 2px solid rgba(255, 255, 255, 0.2);
 border-right: 2px solid rgba(0, 0, 0, 0.3);
+opacity: 0;
+transform: translateY(-140px) rotate(-8deg) scale(0.9);
+}
+
+.livro.colocado {
+opacity: 1;
+transform: translateY(0) rotate(0deg) scale(1);
 }
 
 .livro:hover {
@@ -323,7 +330,6 @@ cursor: pointer;
 <ul>
 <li><a href="#Inicio" id="link-inicio">Inicio</a></li>
 <li><a href="#Sobre">Sobre</a></li>
-<li><a href="#EntreemContato">Entre em Contato</a></li>
 </ul>
 </nav>
 
@@ -374,6 +380,21 @@ cursor: pointer;
 </div>
 </div>
 
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+var ninchos = document.querySelectorAll('.nincho');
+var atrasoGlobal = 300; // espera inicial antes do primeiro livro
+ninchos.forEach(function(nincho, indexNincho) {
+var livros = nincho.querySelectorAll('.livro');
+livros.forEach(function(livro, indexLivro) {
+var atraso = atrasoGlobal + (indexNincho * 150) + (indexLivro * 80);
+setTimeout(function() {
+livro.classList.add('colocado');
+}, atraso);
+});
+});
+});
+</script>
 <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9ad1b64e51c0c6c1',t:'MTc2NTU4OTU5My4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
 
 <!-- SOBRE -->
@@ -384,29 +405,6 @@ Este é um blog pessoal onde compartilho minhas histórias, contos e desabafos.
 Aqui também dou espaço para histórias e desabafos de amigos, criando um lugar
 acolhedor para sentimentos, experiências e reflexões do dia a dia.
 </p>
-</section>
-
-<!-- CONTATO -->
-<section id="EntreemContato" class="contato">
-<h2>Entre em Contato</h2>
-<form onsubmit= "enviarWhats(event)">
-<input type="text" id="nome" placeholder="Seu nome" required>
-<input type="email" id="email" placeholder="Seu email" required>
-<textarea id="mensagem" placeholder= "Escreva sua sugestão para o próximo post..." required></textarea>
-<button type="submit">Enviar</button>
-</form>
-<script>
-function enviarWhats(event) {
-event.preventDefault();
-const nome = document.getElementById("nome").value;
-const email = document.getElementById("email").value;
-const mensagem = document.getElementById("mensagem").value;
-const texto = `Olá! Meu nome é ${nome}%0Aemail: ${email}%0AMensagem: ${mensagem}`;
-const numero = "5598988937978";
-const url = `https://wa.me/${numero}?text=${texto}`;
-window.open(url, "_blank");
-}
-</script>
 </section>
 
 <script>
@@ -633,69 +631,4 @@ setActiveItem(items[0]);
 });
 </script>
 
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-// 1. Seleciona o formulário pelo ID que será adicionado no HTML
-const form = document.getElementById('contactForm');
-// Verifica se o formulário existe antes de continuar
-if (!form) {
-console.error('Formulário com ID "contactForm" não encontrado.');
-return;
-}
-// Cria um elemento para exibir mensagens de status (sucesso/erro)
-const statusMessage = document.createElement('p');
-statusMessage.style.marginTop = '10px';
-statusMessage.style.padding = '10px';
-statusMessage.style.borderRadius = '5px';
-statusMessage.style.textAlign = 'center';
-form.parentNode.insertBefore(statusMessage, form.nextSibling);
 
-form.addEventListener('submit', async function(event) {
-event.preventDefault(); // Impede o envio padrão do formulário
-
-const formData = new FormData(form);
-// Converte os dados do formulário para um objeto JSON
-const data = Object.fromEntries(formData.entries());
-
-// Desabilita o botão e mostra o status de envio
-const submitButton = form.querySelector('button[type="submit"]');
-submitButton.disabled = true;
-submitButton.textContent = 'Enviando...';
-statusMessage.textContent = '';
-statusMessage.style.backgroundColor = 'transparent';
-
-try {
-// O endpoint '/send-email' é o endereço do seu servidor Node.js
-// Se o seu servidor estiver em um domínio diferente, use a URL completa (ex: 'https://api.seusite.com/send-email')
-const response = await fetch('/send-email', {
-method: 'POST',
-headers: {
-'Content-Type': 'application/json'
-},
-body: JSON.stringify(data)
-});
-
-if (response.ok) {
-statusMessage.textContent = 'Mensagem enviada com sucesso! Em breve entraremos em contato.';
-statusMessage.style.color = '#155724'; // Cor verde escura
-statusMessage.style.backgroundColor = '#d4edda'; // Fundo verde claro
-form.reset(); // Limpa o formulário
-} else {
-// Tenta obter uma mensagem de erro específica do servidor
-const errorData = await response.json().catch(() => ({ message: 'Erro desconhecido no servidor.' }));
-statusMessage.textContent = `Falha ao enviar a mensagem. Erro: ${errorData.message || 'Tente novamente mais tarde.'}`;
-statusMessage.style.color = '#721c24'; // Cor vermelha escura
-statusMessage.style.backgroundColor = '#f8d7da'; // Fundo vermelho claro
-}
-} catch (error) {
-console.error('Erro de rede:', error);
-statusMessage.textContent = 'Erro de conexão. Verifique sua internet e tente novamente.';
-statusMessage.style.color = '#721c24';
-statusMessage.style.backgroundColor = '#f8d7da';
-} finally {
-submitButton.disabled = false;
-submitButton.textContent = 'Enviar';
-}
-});
-});
-</script>
