@@ -66,6 +66,14 @@ opacity: 1;
 transform: translateY(0) rotate(0deg) scale(1);
 }
 
+.livro.puxando {
+transform: translateY(-95px) rotate(-4deg) scale(1.05) !important;
+opacity: 0;
+box-shadow: 4px 20px 25px rgba(0, 0, 0, 0.5);
+transition: transform 0.45s cubic-bezier(0.55, 0, 0.1, 1), opacity 0.45s ease 0.15s;
+pointer-events: none;
+}
+
 .livro:hover {
 transform: translateY(-10px);
 box-shadow: 2px 8px 15px rgba(0, 0, 0, 0.5);
@@ -425,134 +433,33 @@ try { history.replaceState(null, '', window.location.pathname); } catch (err) {}
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-// Seleciona o primeiro livro pelo ID que acabamos de adicionar
-var primeiroLivro = document.getElementById('primeiro-livro');
-// Verifica se o elemento foi encontrado
-if (primeiroLivro) {
-// Adiciona um event listener para o evento de clique
-primeiroLivro.addEventListener('click', function() {
-// Redireciona para o arquivo 'primeiropost.html'
-window.location.href = 'primeiropost.html';
-});
-} else {
-console.error('Elemento com ID "primeiro-livro" não encontrado.');
-}
-});
-</script>
+// Mapa de cada livro clicável para o post correspondente
+var mapaLivros = {
+'primeiro-livro': 'primeiropost.html',
+'segundo-livro': 'segundopost.html',
+'terceiro-livro': 'terceiropost.html',
+'quarto-livro': 'quartopost.html',
+'quinto-livro': 'quintopost.html',
+'sexto-livro': 'sextopost.html',
+'setimo-livro': 'setimopost.html',
+'oitavo-livro': 'oitavopost.html'
+};
 
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-// Seleciona o segundo livro pelo ID que acabamos de adicionar
-var segundoLivro = document.getElementById('segundo-livro');
-// Verifica se o elemento foi encontrado
-if (segundoLivro) {
-// Adiciona um event listener para o evento de clique
-segundoLivro.addEventListener('click', function() {
-// Redireciona para o arquivo 'primeiropost.html'
-window.location.href = 'segundopost.html';
-});
-} else {
-console.error('Elemento com ID "segundo-livro" não encontrado.');
+Object.keys(mapaLivros).forEach(function(id) {
+var livro = document.getElementById(id);
+if (!livro) {
+console.error('Elemento com ID "' + id + '" não encontrado.');
+return;
 }
+livro.addEventListener('click', function() {
+if (livro.classList.contains('puxando')) return; // evita clique duplo
+var destino = mapaLivros[id];
+livro.classList.add('puxando');
+setTimeout(function() {
+window.location.href = destino;
+}, 450); // combina com a duração da transição do .puxando
 });
-</script>
-
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-// Seleciona o terceiro livro pelo ID que acabamos de adicionar
-var terceiroLivro = document.getElementById('terceiro-livro');
-// Verifica se o elemento foi encontrado
-if (terceiroLivro) {
-// Adiciona um event listener para o evento de clique
-terceiroLivro.addEventListener('click', function() {
-// Redireciona para o arquivo 'primeiropost.html'
-window.location.href = 'terceiropost.html';
 });
-} else {
-console.error('Elemento com ID "terceiro-livro" não encontrado.');
-}
-});
-</script>
-
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-// Seleciona o quarto livro pelo ID que acabamos de adicionar
-var quartoLivro = document.getElementById('quarto-livro');
-// Verifica se o elemento foi encontrado
-if (quartoLivro) {
-// Adiciona um event listener para o evento de clique
-quartoLivro.addEventListener('click', function() {
-// Redireciona para o arquivo 'primeiropost.html'
-window.location.href = 'quartopost.html';
-});
-} else {
-console.error('Elemento com ID "quarto-livro" não encontrado.');
-}
-});
-</script>
-
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-// Seleciono o quinto livro pelo ID que acabamos de adicionar
-var quintoLivro = document.getElementById('quinto-livro');
-// Verifica se o elemento foi encontrado
-if (quintoLivro) {
-// Adiciona um event listener para o evento de clique
-quintoLivro.addEventListener('click', function() {
-// Redireciona para o arquivo 'primeiropost.html'
-window.location.href = 'quintopost.html';
-});
-} else {
-console.error('Elemento com ID "quinto-livro" não encontrado.');
-}
-});
-</script>
-
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-// Seleciono o quinto livro pelo ID que acabamos de adicionar
-var sextoLivro = document.getElementById('sexto-livro');
-// Verifica se o elemento foi encontrado
-if (sextoLivro) {
-// Adiciona um event listener para o evento de clique
-sextoLivro.addEventListener('click', function() {
-window.location.href = 'sextopost.html';
-});
-} else {
-console.error('Elemento com ID "setimo-livro" não encontrado.');
-}
-var setimoLivro = document.getElementById('setimo-livro');
-if (setimoLivro) {
-setimoLivro.addEventListener('click', function() {
-window.location.href = 'setimopost.html';
-});
-} else {
-console.error('Elemento com ID "setimo-livro" não encontrado.');
-}
-});
-</script>
-
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-// Seleciono o oitavo livro pelo ID que acabamos de adicionar
-var oitavoLivro = document.getElementById('oitavo-livro');
-// Verifica se o elemento foi encontrado
-if (oitavoLivro) {
-// Adiciona um event listener para o evento de clique
-oitavoLivro.addEventListener('click', function() {
-window.location.href = 'oitavopost.html';
-});
-} else {
-console.error('Elemento com ID "oitavo-livro" não encontrado.');
-}
-var oitavoLivro = document.getElementById('oitavo-livro');
-if (oitavoLivro) {
-oitavoLivro.addEventListener('click', function() {
-window.location.href = 'oitavopost.html';
-});
-} else {
-console.error('Elemento com ID "oitavo-livro" não encontrado.');
-}
 });
 </script>
 
