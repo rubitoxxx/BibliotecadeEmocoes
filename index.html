@@ -2,324 +2,327 @@
 <html lang="pt">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Biblioteca de Emoções</title>
 <script src="/_sdk/element_sdk.js"></script>
 <style>
-  :root {
-    --estante-max: 750px;
-    --livro-w: clamp(30px, 7vw, 45px);
-    --livro-h: clamp(90px, 22vw, 160px);
-  }
+body {
+box-sizing: border-box;
+margin: 0;
+padding: 40px;
+background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+min-height: 100vh;
+font-family: 'Georgia', serif;
+text-align: center; /* Para centralizar a estante */
+}
 
-  * {
-    box-sizing: border-box;
-  }
+html, body {
+height: 100%;
+}
 
-  body {
-    margin: 0;
-    padding: clamp(14px, 4vw, 40px);
-    background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
-    min-height: 100vh;
-    font-family: 'Georgia', serif;
-    text-align: center;
-  }
+.estante {
+width: 750px;
+background: linear-gradient(to bottom, #8B4513 0%, #654321 100%);
+padding: 30px;
+border-radius: 10px;
+box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+border: 3px solid #5d3a1a;
+margin: 100px auto 40px auto; /* Adicionar margem superior para o nav fixo */
+}
 
-  html, body {
-    height: 100%;
-    overflow-x: hidden; /* evita rolagem horizontal indesejada no celular */
-  }
+.nincho {
+background: linear-gradient(to bottom, #3d2817 0%, #2a1810 50%, #3d2817 100%);
+padding: 20px 15px;
+margin-bottom: 35px;
+border-radius: 5px;
+box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.6);
+display: flex;
+align-items: flex-end;
+min-height: 180px;
+border: 2px solid #5d3a1a;
+}
+
+.nincho:last-child {
+margin-bottom: 0;
+}
+
+.livro {
+width: 45px;
+height: 160px;
+margin: 0 3px;
+position: relative;
+cursor: pointer;
+transition: transform 0.3s ease, box-shadow 0.3s ease;
+border-radius: 2px;
+box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+border-left: 2px solid rgba(255, 255, 255, 0.2);
+border-right: 2px solid rgba(0, 0, 0, 0.3);
+}
+
+.livro:hover {
+transform: translateY(-10px);
+box-shadow: 2px 8px 15px rgba(0, 0, 0, 0.5);
+}
+
+.livro::before {
+content: '';
+position: absolute;
+top: 5px;
+left: 3px;
+right: 3px;
+height: 3px;
+background: rgba(255, 255, 255, 0.3);
+border-radius: 1px;
+}
+
+.livro::after {
+content: attr(data-titulo);
+position: absolute;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%) rotate(-90deg);
+transform-origin: center;
+font-size: 9px;
+font-weight: bold;
+color: rgba(255, 255, 255, 0.9);
+text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+white-space: nowrap;
+letter-spacing: 0.5px;
+}
+
+.livro1 { background: linear-gradient(to right, #c0392b 0%, #e74c3c 50%, #c0392b 100%); height: 170px; }
+.livro2 { background: linear-gradient(to right, #2980b9 0%, #3498db 50%, #2980b9 100%); height: 155px; }
+.livro3 { background: linear-gradient(to right, #8e44ad 0%, #9b59b6 50%, #8e44ad 100%); height: 165px; }
+.livro4 { background: linear-gradient(to right, #d35400 0%, #e67e22 50%, #d35400 100%); height: 150px; }
+.livro5 { background: linear-gradient(to right, #f39c12 0%, #f1c40f 50%, #f39c12 100%); height: 160px; }
+.livro6 { background: linear-gradient(to right, #27ae60 0%, #2ecc71 50%, #27ae60 100%); height: 168px; }
+.livro7 { background: linear-gradient(to right, #d35400 0%, #e67e22 50%, #d35400 100%); height: 157px; }
+.livro8 { background: linear-gradient(to right, #7f8c8d 0%, #95a5a6 50%, #7f8c8d 100%); height: 163px; }
+.livro9 { background: linear-gradient(to right, #6c3483 0%, #8e44ad 50%, #6c3483 100%); height: 152px; }
+.livro10 { background: linear-gradient(to right, #16a085 0%, #1abc9c 50%, #16a085 100%); height: 166px; }
+.livro11 { background: linear-gradient(to right, #c0392b 0%, #e74c3c 50%, #c0392b 100%); height: 159px; }
+.livro12 { background: linear-gradient(to right, #2c3e50 0%, #34495e 50%, #2c3e50 100%); height: 154px; }
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+* {
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+}
+
+body {
+font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+-webkit-font-smoothing: antialiased;
+-moz-osx-font-smoothing: grayscale;
+}
+
+nav {
+position: top; /* Volta para posicionamento fixo na tela */
+width: fit-content;
+inset-inline: 0px;
+margin: auto;
+top: 30px; /* Posição fixa no topo da janela */
+padding: 0 30px;
+border-radius: 16px;
+background: rgba(255, 255, 255, 0.5); /* Fundo mais transparente para a animação */
+overflow: hidden; /* Necessário para a animação */
+border: 1px solid rgba(255, 255, 255, 0.2);
+box-shadow:
+0 8px 32px rgba(0, 0, 0, 0.1),
+0 4px 16px rgba(0, 0, 0, 0.05);
+z-index: 1000;
+}
+
+nav > ul {
+position: relative; /* Necessário para o pseudo-elemento ::after */
+list-style: none;
+display: flex;
+justify-content: center;
+height: 55px;
+isolation: isolate; /* Necessário para o z-index */
+padding: 0 15px;
+}
+
+nav > ul::after {
+content: '';
+position: absolute;
+left: 0;
+bottom: 6px;
+width: 12px;
+height: 12px;
+background: white;
+border-radius: 50%;
+transform: translateX(var(--translate-x, 0)) translateY(var(--translate-y, 0)) rotate(var(--rotate-x, 0deg));
+transition: none;
+opacity: 0;
+z-index: -1;
+box-shadow:
+0 4px 16px rgba(255, 255, 255, 0.4),
+0 2px 8px rgba(255, 255, 255, 0.3),
+inset 0 1px 0 rgba(255, 255, 255, 0.8),
+inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+border: 1px solid rgba(255, 255, 255, 0.6);
+}
+
+nav > ul li a {
+position: relative;
+width: 100%;
+height: 100%;
+display: flex;
+justify-content: center;
+align-items: center;
+color: #1a1a1a;
+text-decoration: none;
+font-weight: bold;
+font-size: 0.95rem;
+padding-inline: 20px;
+transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+nav > ul li a:hover {
+color: #000000;
+transform: translateY(-2px);
+}
+
+nav > ul li a.active {
+color: #000000;
+transform: translateY(-2px);
+}
+
+nav > ul.show-indicator::after {
+opacity: 1;
+}
+
+.sobre, .contato {
+max-width: 750px;
+margin: 80px auto;
+padding: 40px;
+background: rgba(0,0,0,0.35);
+border-radius: 16px;
+color: #fff;
+box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+}
+
+.sobre h2, .contato h2 {
+margin-bottom: 20px;
+font-size: 1.8rem;
+text-align: center;
+}
+
+.sobre p {
+line-height: 1.7;
+text-align: center;
+}
+
+.contato form {
+display: flex;
+flex-direction: column;
+gap: 15px;
+}
+
+.contato input,
+.contato textarea {
+padding: 12px;
+border-radius: 8px;
+border: none;
+outline: none;
+font-family: inherit;
+color: black
+}
+
+.contato textarea {
+resize: vertical;
+min-height: 120px;
+}
+
+.contato button {
+padding: 12px;
+border-radius: 10px;
+border: none;
+background: #333233;
+color: #fff;
+font-weight: bold;
+cursor: pointer;
+}
+
+/* ===== Responsividade para celular ===== */
+@media (max-width: 768px) {
+  body { padding: 14px; text-align: center; font-size: 15px; }
 
   .estante {
     width: 100%;
-    max-width: var(--estante-max);
-    background: linear-gradient(to bottom, #8B4513 0%, #654321 100%);
-    padding: clamp(14px, 3vw, 30px);
-    border-radius: 10px;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-    border: 3px solid #5d3a1a;
-    margin: clamp(72px, 15vw, 100px) auto 40px auto;
-    opacity: 0;
-    animation: aparecerEstante 0.6s ease forwards;
-  }
-
-  @keyframes aparecerEstante {
-    from { opacity: 0; transform: translateY(10px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-
-  /* Animação de "colocar o livro na estante": cai de cima, gira levemente e encaixa */
-  @keyframes colocarLivro {
-    0% {
-      opacity: 0;
-      transform: translateY(-120px) rotate(-10deg) scale(0.9);
-    }
-    60% {
-      opacity: 1;
-      transform: translateY(6px) rotate(2deg) scale(1.02);
-    }
-    80% {
-      transform: translateY(-3px) rotate(-1deg) scale(1);
-    }
-    100% {
-      opacity: 1;
-      transform: translateY(0) rotate(0) scale(1);
-    }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .estante { opacity: 1; animation: none; }
-    .livro { opacity: 1 !important; animation: none !important; transform: none !important; }
+    max-width: 500px;
+    padding: 16px;
+    margin: 80px auto 22px auto;
+    border-radius: 12px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.35);
+    border: 3px solid rgba(0,0,0,0.18);
   }
 
   .nincho {
-    background: linear-gradient(to bottom, #3d2817 0%, #2a1810 50%, #3d2817 100%);
-    padding: clamp(10px, 2.5vw, 20px) clamp(8px, 2vw, 15px);
-    margin-bottom: clamp(18px, 4vw, 35px);
-    border-radius: 5px;
-    box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.6);
+    padding: 14px 10px;
+    margin-bottom: 20px;
+    min-height: 150px;
     display: flex;
+    flex-wrap: nowrap;
+    gap: 8px;
     align-items: flex-end;
-    justify-content: center;
-    flex-wrap: wrap;
-    row-gap: 10px;
-    min-height: 120px;
-    border: 2px solid #5d3a1a;
-  }
-
-  .nincho:last-child {
-    margin-bottom: 0;
+    justify-content: flex-start;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x proximity;
   }
 
   .livro {
-    width: var(--livro-w);
-    height: var(--livro-h);
-    margin: 0 3px;
-    position: relative;
-    cursor: pointer;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    border-radius: 2px;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
-    border-left: 2px solid rgba(255, 255, 255, 0.2);
-    border-right: 2px solid rgba(0, 0, 0, 0.3);
-    flex-shrink: 0;
-    opacity: 0;
-    animation: colocarLivro 0.55s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-    animation-delay: calc(var(--ordem, 0) * 0.06s + 0.5s);
+    flex: 0 0 auto;
+    width: 44px;
+    height: 140px;
+    margin: 0 4px;
+    scroll-snap-align: start;
   }
 
-  .livro:hover,
-  .livro:active {
-    transform: translateY(-10px);
-    box-shadow: 2px 8px 15px rgba(0, 0, 0, 0.5);
-  }
+  .livro::after { font-size: 8px; }
 
-  .livro::before {
-    content: '';
-    position: absolute;
-    top: 5px;
-    left: 3px;
-    right: 3px;
-    height: 3px;
-    background: rgba(255, 255, 255, 0.3);
-    border-radius: 1px;
-  }
+  .sobre, .contato { padding: 18px; margin: 40px auto; }
 
-  .livro::after {
-    content: attr(data-titulo);
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) rotate(-90deg);
-    transform-origin: center;
-    font-size: clamp(6.5px, 1.6vw, 9px);
-    font-weight: bold;
-    color: rgba(255, 255, 255, 0.9);
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
-    white-space: nowrap;
-    letter-spacing: 0.5px;
-    max-width: calc(var(--livro-h) - 10px);
-  }
+  nav { position: sticky; top: 12px; width: calc(100% - 24px); padding: 6px 10px; }
+  nav > ul { overflow-x: auto; -webkit-overflow-scrolling: touch; justify-content: space-between; }
+  nav > ul li a { padding-inline: 12px; font-size: 0.85rem; white-space: nowrap; }
+}
 
-  .livro1 { background: linear-gradient(to right, #c0392b 0%, #e74c3c 50%, #c0392b 100%); }
-  .livro2 { background: linear-gradient(to right, #2980b9 0%, #3498db 50%, #2980b9 100%); }
-  .livro3 { background: linear-gradient(to right, #8e44ad 0%, #9b59b6 50%, #8e44ad 100%); }
-  .livro4 { background: linear-gradient(to right, #d35400 0%, #e67e22 50%, #d35400 100%); }
-  .livro5 { background: linear-gradient(to right, #f39c12 0%, #f1c40f 50%, #f39c12 100%); }
-  .livro6 { background: linear-gradient(to right, #27ae60 0%, #2ecc71 50%, #27ae60 100%); }
-  .livro7 { background: linear-gradient(to right, #d35400 0%, #e67e22 50%, #d35400 100%); }
-  .livro8 { background: linear-gradient(to right, #7f8c8d 0%, #95a5a6 50%, #7f8c8d 100%); }
-  .livro9 { background: linear-gradient(to right, #6c3483 0%, #8e44ad 50%, #6c3483 100%); }
-  .livro10 { background: linear-gradient(to right, #16a085 0%, #1abc9c 50%, #16a085 100%); }
-  .livro11 { background: linear-gradient(to right, #c0392b 0%, #e74c3c 50%, #c0392b 100%); }
-  .livro12 { background: linear-gradient(to right, #2c3e50 0%, #34495e 50%, #2c3e50 100%); }
+@media (max-width: 420px) {
+  body { padding: 10px; }
 
-  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
-
-  body {
-    font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
-
-  nav {
-    position: sticky;
-    top: 12px;
-    width: fit-content;
-    max-width: calc(100% - 20px);
-    margin: 0 auto;
-    padding: 0 clamp(10px, 3vw, 30px);
-    border-radius: 16px;
-    background: rgba(255, 255, 255, 0.5);
-    overflow: hidden;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    box-shadow:
-      0 8px 32px rgba(0, 0, 0, 0.1),
-      0 4px 16px rgba(0, 0, 0, 0.05);
-    z-index: 1000;
-  }
-
-  nav > ul {
-    position: relative;
-    list-style: none;
-    display: flex;
-    justify-content: center;
-    height: 55px;
-    isolation: isolate;
-    padding: 0 15px;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none; /* Firefox */
-  }
-
-  nav > ul::-webkit-scrollbar {
-    display: none; /* Chrome/Safari */
-  }
-
-  nav > ul::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    bottom: 6px;
-    width: 12px;
-    height: 12px;
-    background: white;
-    border-radius: 50%;
-    transform: translateX(var(--translate-x, 0)) translateY(var(--translate-y, 0)) rotate(var(--rotate-x, 0deg));
-    transition: none;
-    opacity: 0;
-    z-index: -1;
-    box-shadow:
-      0 4px 16px rgba(255, 255, 255, 0.4),
-      0 2px 8px rgba(255, 255, 255, 0.3),
-      inset 0 1px 0 rgba(255, 255, 255, 0.8),
-      inset 0 -1px 0 rgba(0, 0, 0, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.6);
-  }
-
-  nav > ul li a {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #1a1a1a;
-    text-decoration: none;
-    font-weight: bold;
-    font-size: clamp(0.78rem, 2.2vw, 0.95rem);
-    white-space: nowrap;
-    padding-inline: clamp(10px, 3vw, 20px);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-
-  nav > ul li a:hover {
-    color: #000000;
-    transform: translateY(-2px);
-  }
-
-  nav > ul li a.active {
-    color: #000000;
-    transform: translateY(-2px);
-  }
-
-  nav > ul.show-indicator::after {
-    opacity: 1;
-  }
-
-  .sobre, .contato {
-    width: 100%;
-    max-width: 750px;
-    margin: clamp(40px, 8vw, 80px) auto;
-    padding: clamp(20px, 4vw, 40px);
-    background: rgba(0,0,0,0.35);
-    border-radius: 16px;
-    color: #fff;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-  }
-
-  .sobre h2, .contato h2 {
-    margin-bottom: 20px;
-    font-size: clamp(1.4rem, 4vw, 1.8rem);
-    text-align: center;
-  }
-
-  .sobre p {
-    line-height: 1.7;
-    text-align: center;
-    font-size: clamp(0.95rem, 2.5vw, 1rem);
-  }
-
-  .contato form {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-  }
-
-  .contato input,
-  .contato textarea {
-    padding: 12px;
-    border-radius: 8px;
-    border: none;
-    outline: none;
-    font-family: inherit;
-    font-size: 16px; /* evita zoom automático em iOS ao focar no campo */
-    color: black;
-    width: 100%;
-  }
-
-  .contato textarea {
-    resize: vertical;
-    min-height: 120px;
-  }
-
-  .contato button {
+  .estante {
+    max-width: 92vw;
     padding: 14px;
-    border-radius: 10px;
-    border: none;
-    background: #333233;
-    color: #fff;
-    font-weight: bold;
-    cursor: pointer;
-    font-size: 1rem;
+    margin: 64px auto 18px auto;
+    border-radius: 12px;
   }
 
-  /* Telas muito pequenas: reduz ainda mais respiros e evita nichos apertados */
-  @media (max-width: 360px) {
-    .estante { margin-top: 64px; }
-    nav > ul { height: 48px; }
-  }
+  .nincho { min-height: 130px; padding: 12px 8px; gap: 6px; }
+  .livro { width: 40px; height: 120px; }
+  .livro::after { font-size: 7.5px; }
+}
+
+@media (max-width: 360px) {
+  .estante { padding: 12px; margin-top: 56px; }
+  .livro { width: 36px; height: 108px; }
+  .livro::after { font-size: 7px; }
+  .nincho { min-height: 112px; padding: 8px 6px; gap: 5px; }
+}
 </style>
 <style>@view-transition { navigation: auto; }</style>
 <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
 <script src="https://cdn.tailwindcss.com" type="text/javascript"></script>
 </head>
 <body>
+
 <nav>
 <ul>
 <li><a href="#Inicio" id="link-inicio">Inicio</a></li>
 <li><a href="#Sobre">Sobre</a></li>
-<li><a href="#Projetos">Projetos</a></li>
 <li><a href="#EntreemContato">Entre em Contato</a></li>
 </ul>
 </nav>
@@ -371,6 +374,8 @@
 </div>
 </div>
 
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9ad1b64e51c0c6c1',t:'MTc2NTU4OTU5My4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
+
 <!-- SOBRE -->
 <section id="Sobre" class="sobre">
 <h2>Sobre</h2>
@@ -384,272 +389,313 @@ acolhedor para sentimentos, experiências e reflexões do dia a dia.
 <!-- CONTATO -->
 <section id="EntreemContato" class="contato">
 <h2>Entre em Contato</h2>
-<form onsubmit="enviarWhats(event)">
+<form onsubmit= "enviarWhats(event)">
 <input type="text" id="nome" placeholder="Seu nome" required>
 <input type="email" id="email" placeholder="Seu email" required>
-<textarea id="mensagem" placeholder="Escreva sua sugestão para o próximo post..." required></textarea>
+<textarea id="mensagem" placeholder= "Escreva sua sugestão para o próximo post..." required></textarea>
 <button type="submit">Enviar</button>
 </form>
 <script>
 function enviarWhats(event) {
-  event.preventDefault();
-  const nome = document.getElementById("nome").value;
-  const email = document.getElementById("email").value;
-  const mensagem = document.getElementById("mensagem").value;
-  const texto = `Olá! Meu nome é ${nome}%0Aemail: ${email}%0AMensagem: ${mensagem}`;
-  const numero = "5598988937978";
-  const url = `https://wa.me/${numero}?text=${texto}`;
-  window.open(url, "_blank");
+event.preventDefault();
+const nome = document.getElementById("nome").value;
+const email = document.getElementById("email").value;
+const mensagem = document.getElementById("mensagem").value;
+const texto = `Olá! Meu nome é ${nome}%0Aemail: ${email}%0AMensagem: ${mensagem}`;
+const numero = "5598988937978";
+const url = `https://wa.me/${numero}?text=${texto}`;
+window.open(url, "_blank");
 }
 </script>
 </section>
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-  // Define a ordem de cada livro para escalonar a animação de entrada
-  // (colocado na estante um a um, prateleira por prateleira)
-  var livros = document.querySelectorAll('.livro');
-  livros.forEach(function(livro, index) {
-    livro.style.setProperty('--ordem', index);
-  });
+var inicio = document.getElementById('link-inicio');
+if (inicio) {
+inicio.addEventListener('click', function(e) {
+e.preventDefault();
+window.scrollTo({ top: 0, behavior: 'smooth' });
+try { history.replaceState(null, '', window.location.pathname); } catch (err) {}
+});
+}
 });
 </script>
 
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-  var inicio = document.getElementById('link-inicio');
-  if (inicio) {
-    inicio.addEventListener('click', function(e) {
-      e.preventDefault();
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-      try { history.replaceState(null, '', window.location.pathname); } catch (err) {}
-    });
-  }
-});
-</script>
 </body>
 </html>
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-  var primeiroLivro = document.getElementById('primeiro-livro');
-  if (primeiroLivro) {
-    primeiroLivro.addEventListener('click', function() {
-      window.location.href = 'primeiropost.html';
-    });
-  } else {
-    console.error('Elemento com ID "primeiro-livro" não encontrado.');
-  }
+// Seleciona o primeiro livro pelo ID que acabamos de adicionar
+var primeiroLivro = document.getElementById('primeiro-livro');
+// Verifica se o elemento foi encontrado
+if (primeiroLivro) {
+// Adiciona um event listener para o evento de clique
+primeiroLivro.addEventListener('click', function() {
+// Redireciona para o arquivo 'primeiropost.html'
+window.location.href = 'primeiropost.html';
+});
+} else {
+console.error('Elemento com ID "primeiro-livro" não encontrado.');
+}
 });
 </script>
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-  var segundoLivro = document.getElementById('segundo-livro');
-  if (segundoLivro) {
-    segundoLivro.addEventListener('click', function() {
-      window.location.href = 'segundopost.html';
-    });
-  } else {
-    console.error('Elemento com ID "segundo-livro" não encontrado.');
-  }
-});
-</script>
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-  var terceiroLivro = document.getElementById('terceiro-livro');
-  if (terceiroLivro) {
-    terceiroLivro.addEventListener('click', function() {
-      window.location.href = 'terceiropost.html';
-    });
-  } else {
-    console.error('Elemento com ID "terceiro-livro" não encontrado.');
-  }
-});
-</script>
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-  var quartoLivro = document.getElementById('quarto-livro');
-  if (quartoLivro) {
-    quartoLivro.addEventListener('click', function() {
-      window.location.href = 'quartopost.html';
-    });
-  } else {
-    console.error('Elemento com ID "quarto-livro" não encontrado.');
-  }
-});
-</script>
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-  var quintoLivro = document.getElementById('quinto-livro');
-  if (quintoLivro) {
-    quintoLivro.addEventListener('click', function() {
-      window.location.href = 'quintopost.html';
-    });
-  } else {
-    console.error('Elemento com ID "quinto-livro" não encontrado.');
-  }
-});
-</script>
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-  var sextoLivro = document.getElementById('sexto-livro');
-  if (sextoLivro) {
-    sextoLivro.addEventListener('click', function() {
-      window.location.href = 'sextopost.html';
-    });
-  } else {
-    console.error('Elemento com ID "sexto-livro" não encontrado.');
-  }
 
-  var setimoLivro = document.getElementById('setimo-livro');
-  if (setimoLivro) {
-    setimoLivro.addEventListener('click', function() {
-      window.location.href = 'setimopost.html';
-    });
-  } else {
-    console.error('Elemento com ID "setimo-livro" não encontrado.');
-  }
-});
-</script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-  var oitavoLivro = document.getElementById('oitavo-livro');
-  if (oitavoLivro) {
-    oitavoLivro.addEventListener('click', function() {
-      window.location.href = 'oitavopost.html';
-    });
-  } else {
-    console.error('Elemento com ID "oitavo-livro" não encontrado.');
-  }
+// Seleciona o segundo livro pelo ID que acabamos de adicionar
+var segundoLivro = document.getElementById('segundo-livro');
+// Verifica se o elemento foi encontrado
+if (segundoLivro) {
+// Adiciona um event listener para o evento de clique
+segundoLivro.addEventListener('click', function() {
+// Redireciona para o arquivo 'primeiropost.html'
+window.location.href = 'segundopost.html';
+});
+} else {
+console.error('Elemento com ID "segundo-livro" não encontrado.');
+}
 });
 </script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+// Seleciona o terceiro livro pelo ID que acabamos de adicionar
+var terceiroLivro = document.getElementById('terceiro-livro');
+// Verifica se o elemento foi encontrado
+if (terceiroLivro) {
+// Adiciona um event listener para o evento de clique
+terceiroLivro.addEventListener('click', function() {
+// Redireciona para o arquivo 'primeiropost.html'
+window.location.href = 'terceiropost.html';
+});
+} else {
+console.error('Elemento com ID "terceiro-livro" não encontrado.');
+}
+});
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+// Seleciona o quarto livro pelo ID que acabamos de adicionar
+var quartoLivro = document.getElementById('quarto-livro');
+// Verifica se o elemento foi encontrado
+if (quartoLivro) {
+// Adiciona um event listener para o evento de clique
+quartoLivro.addEventListener('click', function() {
+// Redireciona para o arquivo 'primeiropost.html'
+window.location.href = 'quartopost.html';
+});
+} else {
+console.error('Elemento com ID "quarto-livro" não encontrado.');
+}
+});
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+// Seleciono o quinto livro pelo ID que acabamos de adicionar
+var quintoLivro = document.getElementById('quinto-livro');
+// Verifica se o elemento foi encontrado
+if (quintoLivro) {
+// Adiciona um event listener para o evento de clique
+quintoLivro.addEventListener('click', function() {
+// Redireciona para o arquivo 'primeiropost.html'
+window.location.href = 'quintopost.html';
+});
+} else {
+console.error('Elemento com ID "quinto-livro" não encontrado.');
+}
+});
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+// Seleciono o quinto livro pelo ID que acabamos de adicionar
+var sextoLivro = document.getElementById('sexto-livro');
+// Verifica se o elemento foi encontrado
+if (sextoLivro) {
+// Adiciona um event listener para o evento de clique
+sextoLivro.addEventListener('click', function() {
+window.location.href = 'sextopost.html';
+});
+} else {
+console.error('Elemento com ID "setimo-livro" não encontrado.');
+}
+var setimoLivro = document.getElementById('setimo-livro');
+if (setimoLivro) {
+setimoLivro.addEventListener('click', function() {
+window.location.href = 'setimopost.html';
+});
+} else {
+console.error('Elemento com ID "setimo-livro" não encontrado.');
+}
+});
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+// Seleciono o oitavo livro pelo ID que acabamos de adicionar
+var oitavoLivro = document.getElementById('oitavo-livro');
+// Verifica se o elemento foi encontrado
+if (oitavoLivro) {
+// Adiciona um event listener para o evento de clique
+oitavoLivro.addEventListener('click', function() {
+window.location.href = 'oitavopost.html';
+});
+} else {
+console.error('Elemento com ID "oitavo-livro" não encontrado.');
+}
+var oitavoLivro = document.getElementById('oitavo-livro');
+if (oitavoLivro) {
+oitavoLivro.addEventListener('click', function() {
+window.location.href = 'oitavopost.html';
+});
+} else {
+console.error('Elemento com ID "oitavo-livro" não encontrado.');
+}
+});
+</script>
+
 <script>
 document.addEventListener('DOMContentLoaded', () => {
-  const nav = document.querySelector('nav > ul');
-  const items = document.querySelectorAll('nav > ul li a');
-  let anim = null;
-  let currentActiveItem = null;
+const nav = document.querySelector('nav > ul');
+const items = document.querySelectorAll('nav > ul li a');
+let anim = null;
+let currentActiveItem = null;
 
-  const animate = (from, to) => {
-    if (anim) clearInterval(anim);
-    const start = Date.now();
-    anim = setInterval(() => {
-      const p = Math.min((Date.now() - start) / 500, 1);
-      const e = 1 - Math.pow(1 - p, 3);
-      const x = from + (to - from) * e;
-      const y = -40 * (4 * e * (1 - e));
-      const r = 200 * Math.sin(p * Math.PI);
-      nav.style.setProperty('--translate-x', `${x}px`);
-      nav.style.setProperty('--translate-y', `${y}px`);
-      nav.style.setProperty('--rotate-x', `${r}deg`);
-      if (p >= 1) {
-        clearInterval(anim);
-        anim = null;
-        nav.style.setProperty('--translate-y', '0px');
-        nav.style.setProperty('--rotate-x', '0deg');
-      }
-    }, 16);
-  };
+const animate = (from, to) => {
+if (anim) clearInterval(anim);
+const start = Date.now();
+anim = setInterval(() => {
+const p = Math.min((Date.now() - start) / 500, 1);
+const e = 1 - Math.pow(1 - p, 3);
+const x = from + (to - from) * e;
+const y = -40 * (4 * e * (1 - e));
+const r = 200 * Math.sin(p * Math.PI);
+nav.style.setProperty('--translate-x', `${x}px`);
+nav.style.setProperty('--translate-y', `${y}px`);
+nav.style.setProperty('--rotate-x', `${r}deg`);
+if (p >= 1) {
+clearInterval(anim);
+anim = null;
+nav.style.setProperty('--translate-y', '0px');
+nav.style.setProperty('--rotate-x', '0deg');
+}
+}, 16);
+};
 
-  const getCurrentPosition = () => parseFloat(nav.style.getPropertyValue('--translate-x')) || 0;
-  const getItemCenter = (item) => {
-    return item.getBoundingClientRect().left + item.offsetWidth / 2 - nav.getBoundingClientRect().left - 5;
-  };
-  const moveToItem = (item) => {
-    const current = getCurrentPosition();
-    const center = getItemCenter(item);
-    animate(current, center);
-    nav.classList.add('show-indicator');
-  };
-  const setActiveItem = (item) => {
-    if (currentActiveItem) {
-      currentActiveItem.classList.remove('active');
-    }
-    currentActiveItem = item;
-    item.classList.add('active');
-    moveToItem(item);
-  };
-  const handleMouseLeave = () => {
-    if (currentActiveItem) {
-      moveToItem(currentActiveItem);
-    } else {
-      nav.classList.remove('show-indicator');
-      if (anim) clearInterval(anim);
-    }
-  };
+const getCurrentPosition = () => parseFloat(nav.style.getPropertyValue('--translate-x')) || 0;
 
-  items.forEach(item => {
-    item.addEventListener('mouseenter', () => moveToItem(item));
-    item.addEventListener('mouseleave', handleMouseLeave);
-    item.addEventListener('click', () => setActiveItem(item));
-  });
+const getItemCenter = (item) => {
+return item.getBoundingClientRect().left + item.offsetWidth / 2 - nav.getBoundingClientRect().left - 5;
+};
 
-  nav.addEventListener('mouseleave', handleMouseLeave);
+const moveToItem = (item) => {
+const current = getCurrentPosition();
+const center = getItemCenter(item);
+animate(current, center);
+nav.classList.add('show-indicator');
+};
 
-  if (items.length > 0) {
-    setTimeout(() => {
-      setActiveItem(items[0]);
-    }, 100);
-  }
+const setActiveItem = (item) => {
+if (currentActiveItem) {
+currentActiveItem.classList.remove('active');
+}
+currentActiveItem = item;
+item.classList.add('active');
+moveToItem(item);
+};
 
-  // Recalcula a posição do indicador ao girar a tela ou redimensionar
-  window.addEventListener('resize', () => {
-    if (currentActiveItem) moveToItem(currentActiveItem);
-  });
+const handleMouseLeave = () => {
+if (currentActiveItem) {
+moveToItem(currentActiveItem);
+} else {
+nav.classList.remove('show-indicator');
+if (anim) clearInterval(anim);
+}
+};
+
+items.forEach(item => {
+item.addEventListener('mouseenter', () => moveToItem(item));
+item.addEventListener('mouseleave', handleMouseLeave);
+item.addEventListener('click', () => setActiveItem(item));
+});
+
+nav.addEventListener('mouseleave', handleMouseLeave);
+
+if (items.length > 0) {
+setTimeout(() => {
+setActiveItem(items[0]);
+}, 100);
+}
 });
 </script>
+
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-  const form = document.getElementById('contactForm');
-  if (!form) {
-    return;
-  }
+// 1. Seleciona o formulário pelo ID que será adicionado no HTML
+const form = document.getElementById('contactForm');
+// Verifica se o formulário existe antes de continuar
+if (!form) {
+console.error('Formulário com ID "contactForm" não encontrado.');
+return;
+}
+// Cria um elemento para exibir mensagens de status (sucesso/erro)
+const statusMessage = document.createElement('p');
+statusMessage.style.marginTop = '10px';
+statusMessage.style.padding = '10px';
+statusMessage.style.borderRadius = '5px';
+statusMessage.style.textAlign = 'center';
+form.parentNode.insertBefore(statusMessage, form.nextSibling);
 
-  const statusMessage = document.createElement('p');
-  statusMessage.style.marginTop = '10px';
-  statusMessage.style.padding = '10px';
-  statusMessage.style.borderRadius = '5px';
-  statusMessage.style.textAlign = 'center';
-  form.parentNode.insertBefore(statusMessage, form.nextSibling);
+form.addEventListener('submit', async function(event) {
+event.preventDefault(); // Impede o envio padrão do formulário
 
-  form.addEventListener('submit', async function(event) {
-    event.preventDefault();
-    const formData = new FormData(form);
-    const data = Object.fromEntries(formData.entries());
+const formData = new FormData(form);
+// Converte os dados do formulário para um objeto JSON
+const data = Object.fromEntries(formData.entries());
 
-    const submitButton = form.querySelector('button[type="submit"]');
-    submitButton.disabled = true;
-    submitButton.textContent = 'Enviando...';
-    statusMessage.textContent = '';
-    statusMessage.style.backgroundColor = 'transparent';
+// Desabilita o botão e mostra o status de envio
+const submitButton = form.querySelector('button[type="submit"]');
+submitButton.disabled = true;
+submitButton.textContent = 'Enviando...';
+statusMessage.textContent = '';
+statusMessage.style.backgroundColor = 'transparent';
 
-    try {
-      const response = await fetch('/send-email', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data)
-      });
+try {
+// O endpoint '/send-email' é o endereço do seu servidor Node.js
+// Se o seu servidor estiver em um domínio diferente, use a URL completa (ex: 'https://api.seusite.com/send-email')
+const response = await fetch('/send-email', {
+method: 'POST',
+headers: {
+'Content-Type': 'application/json'
+},
+body: JSON.stringify(data)
+});
 
-      if (response.ok) {
-        statusMessage.textContent = 'Mensagem enviada com sucesso! Em breve entraremos em contato.';
-        statusMessage.style.color = '#155724';
-        statusMessage.style.backgroundColor = '#d4edda';
-        form.reset();
-      } else {
-        const errorData = await response.json().catch(() => ({ message: 'Erro desconhecido no servidor.' }));
-        statusMessage.textContent = `Falha ao enviar a mensagem. Erro: ${errorData.message || 'Tente novamente mais tarde.'}`;
-        statusMessage.style.color = '#721c24';
-        statusMessage.style.backgroundColor = '#f8d7da';
-      }
-    } catch (error) {
-      console.error('Erro de rede:', error);
-      statusMessage.textContent = 'Erro de conexão. Verifique sua internet e tente novamente.';
-      statusMessage.style.color = '#721c24';
-      statusMessage.style.backgroundColor = '#f8d7da';
-    } finally {
-      submitButton.disabled = false;
-      submitButton.textContent = 'Enviar';
-    }
-  });
+if (response.ok) {
+statusMessage.textContent = 'Mensagem enviada com sucesso! Em breve entraremos em contato.';
+statusMessage.style.color = '#155724'; // Cor verde escura
+statusMessage.style.backgroundColor = '#d4edda'; // Fundo verde claro
+form.reset(); // Limpa o formulário
+} else {
+// Tenta obter uma mensagem de erro específica do servidor
+const errorData = await response.json().catch(() => ({ message: 'Erro desconhecido no servidor.' }));
+statusMessage.textContent = `Falha ao enviar a mensagem. Erro: ${errorData.message || 'Tente novamente mais tarde.'}`;
+statusMessage.style.color = '#721c24'; // Cor vermelha escura
+statusMessage.style.backgroundColor = '#f8d7da'; // Fundo vermelho claro
+}
+} catch (error) {
+console.error('Erro de rede:', error);
+statusMessage.textContent = 'Erro de conexão. Verifique sua internet e tente novamente.';
+statusMessage.style.color = '#721c24';
+statusMessage.style.backgroundColor = '#f8d7da';
+} finally {
+submitButton.disabled = false;
+submitButton.textContent = 'Enviar';
+}
+});
 });
 </script>
