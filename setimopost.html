@@ -1,113 +1,689 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A Magia da Programação</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
-            color: #333;
-            line-height: 1.6;
-            margin: 0;
-            padding: 0;
-            text-align: justify;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A Magia da Programação — Livro</title>
 
-        .container {
-            width: 80%;
-            max-width: 800px;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: #fff;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
-        }
+<style>
+* {
+    box-sizing: border-box;
+}
 
-        h1 {
-            text-align: center;
-            color: #2c3e50;
-            font-size: 2em;
-        }
+:root {
+    --paper: #f7efd9;
+    --paper-dark: #e8d7b0;
+    --ink: #2d2419;
+    --gold: #b58a45;
+    --cover: #3d2418;
+    --cover-light: #69422b;
+}
 
-        p {
-            font-size: 1.1em;
-            margin-bottom: 1.5em;
-            color: #555;
-        }
+html, body {
+    margin: 0;
+    min-height: 100%;
+}
 
-        .signature {
-            font-size: 1.2em;
-            font-style: italic;
-            text-align: right;
-            color: #2c3e50;
-        }
+body {
+    font-family: Georgia, "Times New Roman", serif;
+    background:
+        radial-gradient(circle at 50% 20%, rgba(255,255,255,.12), transparent 30%),
+        linear-gradient(135deg, #18110d, #302016 45%, #100b08);
+    color: var(--ink);
+    overflow-x: hidden;
+}
 
-        .post-image {
-            text-align: center;
-            margin-top: 20px;
-        }
+/* Fundo */
+.background {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+}
 
-        .post-image img {
-            width: 100%;
-            max-width: 600px;
-            height: auto;
-            border-radius: 8px;
-        }
+.background::before,
+.background::after {
+    content: "";
+    position: absolute;
+    width: 420px;
+    height: 420px;
+    border-radius: 50%;
+    filter: blur(90px);
+    opacity: .16;
+}
 
-        .post-video {
-            text-align: center;
-            margin: 1.5em 0;
-        }
+.background::before {
+    background: #d8a75e;
+    top: -180px;
+    left: -120px;
+}
 
-        .post-video video,
-        .post-video img {
-            width: 100%;
-            max-width: 600px;
-            height: auto;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-    </style>
+.background::after {
+    background: #8b5a35;
+    right: -150px;
+    bottom: -180px;
+}
+
+/* Cena do livro */
+.book-stage {
+    min-height: 100vh;
+    padding: 60px 20px 80px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    perspective: 1800px;
+}
+
+.book {
+    width: min(1100px, 94vw);
+    position: relative;
+    transform-style: preserve-3d;
+    filter: drop-shadow(0 35px 35px rgba(0,0,0,.45));
+}
+
+/* Capa fechada */
+.book-cover {
+    position: absolute;
+    inset: 0;
+    z-index: 20;
+    background:
+        linear-gradient(135deg, var(--cover-light), var(--cover) 55%, #24130c);
+    border-radius: 8px 18px 18px 8px;
+    transform-origin: left center;
+    transform: rotateY(0deg);
+    backface-visibility: hidden;
+    box-shadow:
+        inset 8px 0 0 rgba(0,0,0,.18),
+        inset -2px 0 0 rgba(255,255,255,.08),
+        0 12px 35px rgba(0,0,0,.35);
+    transition:
+        transform 2.2s cubic-bezier(.77,0,.18,1),
+        opacity .2s linear 2.05s;
+}
+
+.book-cover::before {
+    content: "";
+    position: absolute;
+    inset: 18px;
+    border: 1px solid rgba(220,178,105,.65);
+    border-radius: 5px 12px 12px 5px;
+}
+
+.book-cover::after {
+    content: "";
+    position: absolute;
+    left: 32px;
+    top: 50%;
+    width: 5px;
+    height: 72%;
+    transform: translateY(-50%);
+    background: linear-gradient(
+        to right,
+        rgba(0,0,0,.45),
+        rgba(255,255,255,.13),
+        rgba(0,0,0,.2)
+    );
+    border-radius: 4px;
+}
+
+.cover-content {
+    height: 100%;
+    min-height: 620px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 60px;
+    color: #f3dfb2;
+    position: relative;
+}
+
+.cover-symbol {
+    width: 105px;
+    height: 105px;
+    border: 2px solid #c89c58;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    font-size: 48px;
+    margin-bottom: 35px;
+    box-shadow: 0 0 35px rgba(201,156,88,.18);
+}
+
+.cover-content h2 {
+    margin: 0;
+    font-size: clamp(2.2rem, 6vw, 4.8rem);
+    letter-spacing: .04em;
+    font-weight: normal;
+}
+
+.cover-content p {
+    margin-top: 20px;
+    font-size: 1.15rem;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    opacity: .8;
+}
+
+.cover-author {
+    position: absolute;
+    bottom: 50px;
+    font-style: italic;
+    font-size: 1.1rem;
+}
+
+/* Miolo do livro */
+.book-pages {
+    position: relative;
+    min-height: 620px;
+    padding: 42px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    transform-style: preserve-3d;
+    background: #d7c39b;
+    border-radius: 7px 18px 18px 7px;
+    overflow: hidden;
+}
+
+.page {
+    position: relative;
+    background:
+        linear-gradient(rgba(255,255,255,.25), rgba(255,255,255,.25)),
+        var(--paper);
+    min-height: 540px;
+    padding: 48px 48px 58px;
+    box-shadow: inset 0 0 28px rgba(83,57,25,.10);
+}
+
+.page.left {
+    border-radius: 5px 0 0 5px;
+    border-right: 1px solid rgba(72,48,20,.25);
+}
+
+.page.right {
+    border-radius: 0 5px 5px 0;
+}
+
+.page::before {
+    content: "";
+    position: absolute;
+    inset: 13px;
+    border: 1px solid rgba(139,105,57,.13);
+    pointer-events: none;
+}
+
+.page-number {
+    position: absolute;
+    bottom: 22px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    font-size: .78rem;
+    color: #8a7351;
+}
+
+.page h1 {
+    text-align: center;
+    color: #47321f;
+    font-size: clamp(1.8rem, 3vw, 2.6rem);
+    font-weight: normal;
+    margin: 0 0 32px;
+    line-height: 1.2;
+}
+
+.page p {
+    font-size: 1.04rem;
+    line-height: 1.8;
+    text-align: justify;
+    margin: 0 0 1.25em;
+    color: #4b4032;
+}
+
+.page em {
+    color: #694a2e;
+}
+
+.signature {
+    font-size: 1.2em;
+    font-style: italic;
+    text-align: right;
+    color: #2c3e50;
+}
+
+.post-image,
+.post-video {
+    text-align: center;
+    margin: 1.5em 0;
+}
+
+.post-image img,
+.post-video img,
+.post-video video {
+    width: 100%;
+    max-width: 600px;
+    height: auto;
+    border-radius: 5px;
+    box-shadow: 0 6px 15px rgba(50,30,10,.18);
+}
+
+/* Folhas decorativas */
+.sheet {
+    position: absolute;
+    top: 35px;
+    bottom: 35px;
+    left: 50%;
+    width: calc(50% - 35px);
+    background: var(--paper);
+    transform-origin: left center;
+    transform-style: preserve-3d;
+    z-index: 10;
+    opacity: 0;
+    box-shadow: 2px 0 8px rgba(0,0,0,.18);
+    pointer-events: none;
+}
+
+.sheet:nth-of-type(1) { transition-delay: .15s; }
+.sheet:nth-of-type(2) { transition-delay: .32s; }
+.sheet:nth-of-type(3) { transition-delay: .49s; }
+.sheet:nth-of-type(4) { transition-delay: .66s; }
+.sheet:nth-of-type(5) { transition-delay: .83s; }
+.sheet:nth-of-type(6) { transition-delay: 1s; }
+
+/* Animação de abertura */
+.book.opening .book-cover {
+    transform: rotateY(-178deg);
+}
+
+.book.opening .sheet {
+    opacity: 1;
+    animation: flipPage 1.15s cubic-bezier(.7,0,.2,1) forwards;
+}
+
+.book.opening .sheet:nth-of-type(1) { animation-delay: .15s; }
+.book.opening .sheet:nth-of-type(2) { animation-delay: .35s; }
+.book.opening .sheet:nth-of-type(3) { animation-delay: .55s; }
+.book.opening .sheet:nth-of-type(4) { animation-delay: .75s; }
+.book.opening .sheet:nth-of-type(5) { animation-delay: .95s; }
+.book.opening .sheet:nth-of-type(6) { animation-delay: 1.15s; }
+
+@keyframes flipPage {
+    0% {
+        transform: rotateY(0deg);
+        opacity: 0;
+    }
+    15% {
+        opacity: 1;
+    }
+    100% {
+        transform: rotateY(-175deg);
+        opacity: 0;
+    }
+}
+
+/* Conteúdo aparece depois da abertura */
+.book-content {
+    opacity: 0;
+    transform: translateY(22px) scale(.985);
+    transition:
+        opacity 1.2s ease 2.35s,
+        transform 1.2s ease 2.35s;
+}
+
+.book.opening .book-content {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+/* Brilho da abertura */
+.magic-light {
+    position: fixed;
+    z-index: 30;
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    background: radial-gradient(
+        circle,
+        rgba(255,225,156,.75) 0%,
+        rgba(255,205,105,.25) 28%,
+        transparent 70%
+    );
+    pointer-events: none;
+    mix-blend-mode: screen;
+}
+
+.book.opening ~ .magic-light {
+    animation: magicLight 2.2s ease-out forwards;
+}
+
+@keyframes magicLight {
+    0% { transform: translate(-50%, -50%) scale(0); opacity: 0; }
+    45% { transform: translate(-50%, -50%) scale(2.7); opacity: .9; }
+    100% { transform: translate(-50%, -50%) scale(5); opacity: 0; }
+}
+
+/* Botão */
+.open-button {
+    position: fixed;
+    z-index: 50;
+    left: 50%;
+    bottom: 28px;
+    transform: translateX(-50%);
+    border: 1px solid rgba(235,205,147,.55);
+    background: rgba(38,23,15,.9);
+    color: #f4dfb5;
+    padding: 13px 24px;
+    border-radius: 999px;
+    cursor: pointer;
+    font-family: Georgia, serif;
+    font-size: .98rem;
+    backdrop-filter: blur(8px);
+    transition: .25s;
+    box-shadow: 0 8px 25px rgba(0,0,0,.3);
+}
+
+.open-button:hover {
+    transform: translateX(-50%) translateY(-2px);
+    background: rgba(78,49,30,.95);
+}
+
+.open-button.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Footer */
+footer {
+    color: #cdbd9e;
+    text-align: center;
+    padding: 0 20px 35px;
+}
+
+footer p {
+    margin: 0;
+    font-size: .85rem;
+}
+
+/* Responsividade */
+@media (max-width: 800px) {
+    .book-stage {
+        padding: 30px 10px 75px;
+    }
+
+    .book-pages {
+        grid-template-columns: 1fr;
+        padding: 18px;
+    }
+
+    .page {
+        min-height: auto;
+        padding: 35px 28px 55px;
+    }
+
+    .page.left {
+        border-right: 0;
+        border-bottom: 1px solid rgba(72,48,20,.25);
+    }
+
+    .book-cover,
+    .cover-content {
+        min-height: 760px;
+    }
+
+    .book-cover {
+        position: absolute;
+    }
+
+    .cover-content {
+        padding: 35px;
+    }
+
+    .cover-content h2 {
+        font-size: 2.4rem;
+    }
+
+    .page p {
+        font-size: .98rem;
+        line-height: 1.7;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .book-cover,
+    .book-content,
+    .sheet,
+    .magic-light {
+        animation: none !important;
+        transition: none !important;
+    }
+
+    .book.opening .book-cover {
+        opacity: 0;
+    }
+
+    .book.opening .book-content {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+/* ===== LIVRO ABERTO EM DUAS FOLHAS ===== */
+.book-pages {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    align-items: stretch;
+    width: 100%;
+}
+
+.page {
+    min-width: 0;
+    overflow: hidden;
+}
+
+.page-inner {
+    width: 100%;
+}
+
+.page.left {
+    border-right: 2px solid rgba(72,48,20,.20);
+    box-shadow:
+        inset -12px 0 18px rgba(70,45,20,.07),
+        inset 0 0 28px rgba(83,57,25,.10);
+}
+
+.page.right {
+    box-shadow:
+        inset 12px 0 18px rgba(70,45,20,.07),
+        inset 0 0 28px rgba(83,57,25,.10);
+}
+
+/* Linha central / lombada */
+.book-pages::after {
+    content: "";
+    position: absolute;
+    top: 28px;
+    bottom: 28px;
+    left: 50%;
+    width: 5px;
+    transform: translateX(-50%);
+    background: linear-gradient(
+        to right,
+        transparent,
+        rgba(62,39,17,.17),
+        rgba(255,255,255,.38),
+        rgba(62,39,17,.12),
+        transparent
+    );
+    pointer-events: none;
+    z-index: 5;
+}
+
+@media (max-width: 800px) {
+    .book-stage {
+        padding: 18px 8px 85px;
+        min-height: 100vh;
+    }
+
+    .book {
+        width: 96vw;
+    }
+
+    .book-pages {
+        grid-template-columns: 1fr;
+        padding: 10px;
+        gap: 0;
+    }
+
+    .book-pages::after {
+        display: none;
+    }
+
+    .page {
+        min-height: 0;
+        padding: 34px 25px 58px;
+    }
+
+    .page.left {
+        border-right: 0;
+        border-bottom: 2px solid rgba(72,48,20,.18);
+        box-shadow: inset 0 -12px 18px rgba(70,45,20,.06);
+    }
+
+    .page.right {
+        box-shadow: inset 0 12px 18px rgba(70,45,20,.06);
+    }
+
+    .page h1 {
+        font-size: clamp(1.7rem, 8vw, 2.3rem);
+        margin-bottom: 24px;
+    }
+
+    .page p {
+        font-size: 1rem;
+        line-height: 1.75;
+        text-align: left;
+        overflow-wrap: anywhere;
+    }
+
+    .post-video img,
+    .post-image img,
+    .post-video video {
+        max-width: 100%;
+    }
+
+    .book-cover,
+    .cover-content {
+        min-height: 620px;
+    }
+
+    .cover-content {
+        padding: 28px;
+    }
+
+    .cover-content h2 {
+        font-size: clamp(2rem, 11vw, 3rem);
+    }
+
+    .cover-symbol {
+        width: 82px;
+        height: 82px;
+        font-size: 36px;
+        margin-bottom: 25px;
+    }
+
+    .open-button {
+        bottom: 16px;
+        font-size: .92rem;
+        padding: 12px 20px;
+    }
+}
+
+@media (max-width: 430px) {
+    .book {
+        width: 97vw;
+    }
+
+    .page {
+        padding: 28px 20px 54px;
+    }
+
+    .page p {
+        font-size: .96rem;
+        line-height: 1.7;
+    }
+
+    .page-number {
+        bottom: 17px;
+    }
+}
+
+</style>
 </head>
 
 <body>
 
-    <div class="container">
-        <h1>A Magia da Programação</h1>
+<div class="background"></div>
 
-        <p>
+<main class="book-stage">
+    <div class="book" id="book">
+
+        <div class="book-cover">
+            <div class="cover-content">
+                <div class="cover-symbol">✦</div>
+                <h2>A Magia da<br>Programação</h2>
+                <p>Uma jornada pelo conhecimento</p>
+                <div class="cover-author">Rubens Gabriel</div>
+            </div>
+        </div>
+
+        <!-- Folhas usadas durante a animação de folhear -->
+        <div class="sheet"></div>
+        <div class="sheet"></div>
+        <div class="sheet"></div>
+        <div class="sheet"></div>
+        <div class="sheet"></div>
+        <div class="sheet"></div>
+
+        <div class="book-content">
+<div class="book-pages">
+    <section class="page left">
+        <div class="page-inner">
+            <h1>A Magia da Programação</h1>
+<p>
             No anime <em>Frieren: Beyond Journey's End</em>, existe uma ideia que me marcou profundamente: a magia é um
             mundo de imaginação. Um mago só consegue lançar um feitiço se antes conseguir visualizá-lo em sua mente. Se
             ele não consegue imaginar aquilo acontecendo, então a magia simplesmente não acontece. Quando ouvi isso
             pela primeira vez, percebi o quanto isso parece com a programação.
         </p>
-
-        <p>
+<p>
             Programar também é um exercício de imaginação. Antes de existir na tela, antes de virar código, tudo começa
             na mente do programador. Cada sistema, cada função, cada solução nasce primeiro como uma ideia que alguém
             conseguiu imaginar.
         </p>
-
-        <p>
+<p>
             No anime, existe uma maga muito antiga chamada Frieren. Ela vive em uma era de paz, muito tempo depois de
             uma grande guerra. Nesse mundo, muitas pessoas sabem usar magia, mas a maioria utiliza magias simples: elas
             colocam mana em algo que já existe e apenas manipulam aquilo.
         </p>
-
-        <p>
+<p>
             Por exemplo, em vez de criar água do nada, um mago coloca mana na água e a controla. É muito mais fácil
             manipular algo que já existe do que criar algo completamente novo. Criar algo do zero exige mais energia,
             mais conhecimento e um domínio muito maior da magia.             Na programação acontece exatamente a mesma coisa.
         </p>
-
-        <div class="post-video">
+<div class="post-video">
             <img src="manipulação-da-agua.gif" alt="Manipulação da água">
         </div>
+        </div>
+        <div class="page-number">1</div>
+    </section>
 
-        <p>
+    <section class="page right">
+        <div class="page-inner">
+            <p>
             Hoje temos muitas ferramentas, inclusive inteligência artificial, que nos ajudam a gerar códigos
             rapidamente. Muitas vezes é muito mais fácil pegar algo pronto e apenas ajustar ou modificar. Isso
             realmente facilita o trabalho. Mas existe um risco significativo. Quando fazemos isso o tempo todo, acabamos
@@ -115,49 +691,69 @@
             fácil manipular algo pronto do que construir algo do zero. Mas é justamente no processo de criar do zero
             que aparece o verdadeiro conhecimento.
         </p>
-
-        <p>
+<p>
             Existe uma cena inesquecível no anime. (Alerta de spoiler.) Em um momento da história, Frieren e Fern
             precisam lutar contra um clone da própria Frieren. Durante uma batalha, quando o clone está prestes a ser
             derrotado, ele lança um feitiço completamente diferente de tudo que já tinha sido visto. Não era apenas
             mais uma magia. Era algo que representava o fundamento da magia.
         </p>
-
-        <p>
+<p>
             Fern, já imobilizada, quase sem forças para lutar, observa aquilo com os olhos brilhando, completamente
             impressionada, e diz: "Então… essa é a grandeza da magia."
         </p>
-
-          <div class="post-video">
+<div class="post-video">
             <img src="https://media1.tenor.com/m/bj1sS72rKQAAAAAC/clone-frieren-frieren-attacks-fern.gif" alt="Manipulação da água">
              </div>
-
-
-
-        <p>
+<p>
             Quando eu vi meu professor criar um sistema do zero, aplicando todos os conceitos da programação orientada a
             objetos, sem usar IA, sem copiar código, apenas usando conhecimento, lógica e experiência… eu senti
             exatamente a mesma coisa. Meus olhos brilharam como os da Fern naquele momento. Porque ali eu não estava
             vendendo apenas código. Eu estava vendendo domínio. Eu estava vendendo os fundamentos em ação. E é exatamente esse
             tipo de conhecimento que eu busco.
         </p>
-
-        <p>
+<p>
             Claro que hoje as ferramentas de IA tornam tudo mais rápido e mais fácil. Elas são incríveis e fazem parte
             do nosso tempo. Mas existe algo que nenhuma ferramenta pode substituir: uma jornada de aprendizagem. Porque,
             no fim, como a própria Frieren diz: "O maior prazer da magia está na busca que fazemos por ela." E talvez
             seja exatamente isso que torna tanto a magia quanto a programação algo tão fascinante: a busca pelo
             conhecimento que ainda não dominamos.
         </p>
-
-        <p class="signature">
+<p class="signature">
             - Rubens Gabriel
         </p>
+        </div>
+        <div class="page-number">2</div>
+    </section>
+</div>
+</div></div>
+</main>
 
-    </div>
-    <footer>
-        <center><p>&copy; 2025 Rubens Gabriel - Todos os direitos reservados</p></center>
-    </footer>
+<div class="magic-light"></div>
+
+<button class="open-button" id="openButton">
+    ✦ Abrir o livro
+</button>
+
+<footer>
+    <p>&copy; 2025 Rubens Gabriel - Todos os direitos reservados</p>
+</footer>
+
+<script>
+const book = document.getElementById("book");
+const openButton = document.getElementById("openButton");
+
+function openBook() {
+    book.classList.add("opening");
+    openButton.classList.add("hidden");
+}
+
+openButton.addEventListener("click", openBook);
+
+/* Abre automaticamente após a entrada da página. */
+window.addEventListener("load", () => {
+    setTimeout(openBook, 900);
+});
+</script>
+
 </body>
-
 </html>
